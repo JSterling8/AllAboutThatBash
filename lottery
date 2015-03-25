@@ -1,0 +1,27 @@
+#!/bin/bash
+# This command uses the bash shell.
+# Author: Jonathan Sterling
+# Date last modified: 14 December 2012 
+# This command will generate the required number of lottery numbers based on the users input.
+
+echo "Enter the largest number in the lottery range: "                  # Largest number in the lottery range input.
+read largest
+
+echo "Enter the number of lottery numbers required: "                   # How many lotter numbers input.
+read howMany
+
+counter=0                                                               # Initializes the counter to 0.
+
+declare -a randomList=()                                                # Creates an empty associated array "randomList".
+
+while [ $counter -lt $howMany ]                                         # While we still need more numbers.
+do    
+    testNumber=$[ ( $RANDOM % $largest ) + 1 ]                          # testNumber equals a random number within the range given.
+    match=$(echo "${randomList[@]:0}" | grep -o "$testNumber")          # Does this number already occur in our list?
+    if [ ! "$match" ]                                                   # If it does not already occur.
+    then
+        randomList["$counter"]=$testNumber                              # Then add it to the list.
+        counter=$(($counter+1))                                         # Increment the coutner by 1.
+    fi
+done
+echo ${randomList[@]}                                                   # Output the list.

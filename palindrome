@@ -1,0 +1,32 @@
+#!/bin/bash
+# This command uses the bash shell.
+# Author: Jonathan Sterling
+# Date last modified: 13 December 2012 
+# This command will determine whether or not a word or phrase entered is a palindrome.
+
+expectedArgs=1
+
+if [ $# -ne $expectedArgs ]                                         # If there's not 1 and only 1 input.
+then
+    echo "The correct usage of this command is \"palindrome WORD_OR_PHRASE_TO_CHECK\""   # Instruct on correct command usage.
+else    
+    userEntry=$1
+    userEntry=`echo -n $userEntry | tr A-Z a-z`                     # This converts the entry to lowercase.
+    userEntry=${userEntry//[^a-zA-z0-9]/}                           # This removes anything that's not alphanumeric.
+    entryLength=${#userEntry}                                       # This gets the inputs length.
+    i=0                                                             # This initializes the counter to 0.
+
+    half=$(($entryLength/2))                                        # This finds half of the input length.
+
+    while [ $i -lt $half ]                                          # While i is less than half of the input length.
+    do
+        if [ "${userEntry:$i:1}" != "${userEntry: -$(($i+1)):1}" ]  # If this 1st letter doesn't match the last, or 2nd 2nd to last, etc.
+        then
+            echo "\"$1\" is not a palindrome."                      # Then this is not a palindrome.
+            exit                                                    # And we should stop this script here.
+        fi
+        
+    i=$(($i+1))                                                     # Increment the counter.
+    done
+    echo "\"$1\" is a palindrome."                                  # If we've not had any mismatches, then it's a palindrome.
+fi
