@@ -1,0 +1,22 @@
+#!/bin/bash
+# This command uses the bash shell.
+# Author: Jonathan Sterling
+# Date last modified: 09 December 2012 
+# This command lists the names of all of the specified files in your waste bin and their size in bytes.
+
+
+if [ -d $HOME/.waste ]                              # Checks that the directory entered is valid
+    then
+    for var in "$@"                                 # Loop while $var is in the total number of inputs
+    do
+        if [ -f $HOME/.waste/"$var" ]               # If the input exists and is a file.
+        then
+            size=$(stat -c%s $HOME/.waste/"$var")	# Sets size equal to the size of the current file in bytes.
+            echo -e "$var is $size bytes."          # Outputs the current file being tested and its' size in bytes.
+        else
+        echo "$var is not in the .waste directory." # Outputs an error message if the current file doesn't exist in $HOME/.waste
+        fi
+    done
+else
+    echo You don\'t have a waste directory.         # Outputs an error message if $HOME/.waste doesn't exist.
+fi

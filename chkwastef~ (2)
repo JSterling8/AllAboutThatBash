@@ -1,0 +1,28 @@
+#!/bin/bash
+# This command uses the bash shell.
+# Author: Jonathan Sterling
+# Date last modified: 08 December 2012 
+# This command lists the first few lines of individual files in the waste bin.
+
+	OIFS=$IFS					#save old file seperator
+	IFS=$'\n'					#set file seperator to just new line
+
+for var in "$@"                             # loop while var is in the total number of inputs
+do
+    
+    if [ -f $HOME/.waste/$var ]
+    then
+    head -v -n 5 $var				            # Prints the first 5 lines of the file. 
+
+    else
+        failed="$failed $var"
+    fi
+
+done
+
+if [ ! -z $failed ]
+then
+    echo "The following files could not be found: $failed"
+fi
+
+IFS=$OIFS

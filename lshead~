@@ -1,0 +1,36 @@
+#!/bin/bash
+# This command uses the bash shell.
+# Author: Jonathan Sterling
+# Date last modified: 08 December 2012 
+# This command "lists the first few lines of every file in a directory specified by the argument."
+
+IFSold=$IFS
+IFS=$'\n'
+
+workingdir=$1                                               # Sets the working directory to the users input.
+
+if [ -z $workingdir ]                                       # Makes sure an input is given.
+    then
+    echo You must specify a directory.  USAGE: lshead directory
+
+else
+    if [ -d $workingdir ]                                    # Checks that the directory entered is valid
+        then
+    	for file in $( find $workingdir -maxdepth 1 -name "*" )
+	    do
+	    	if [ -f "$file" ]      				            # Makes sure that it's a file, not a directory.
+	    	then		
+	    		head -v -n 3 $file				            # Prints the first 3 lines of the file.
+	    	fi
+	    done
+
+    else
+        echo $workingdir is not a valid directory.          # If it's not a valid directory, let the user know.
+    fi      
+fi    
+
+IFS=$IFSold
+
+
+
+

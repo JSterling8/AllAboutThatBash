@@ -1,0 +1,20 @@
+#!/bin/bash
+# This command uses the bash shell.
+# Author: Jonathan Sterling
+# Date last modified: 09 December 2012 
+# This command lists the first few lines of individual files in the waste bin.
+
+if [ -d $HOME/.waste ]                                      # Checks that the directory exists.
+then    
+    for var in "$@"                                         # Loop while var is in the total number of inputs.
+    do
+        if [ -f $HOME/.waste/"$var" ]                       # If it's a the current argument exists and is a file.
+        then
+            head -v -n 5 $HOME/.waste/"$var"				# Prints the first 5 lines of the current file. 
+        else
+            echo "$var does not exist in $HOME/.waste/"     # Prints an error message if the specified file doesn't exist.
+        fi
+    done
+else
+    echo "You don't have a .waste directory."               # Prints an error message if there is no .waste directory.
+fi

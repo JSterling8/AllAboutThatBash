@@ -1,0 +1,13 @@
+#!/bin/bash
+# This command uses the bash shell.
+# Author: Jonathan Sterling
+# Date last modified: 08 December 2012 
+# This command deletes everything in the waste bin.
+
+if [ ! -d $HOME/.waste/ ]
+    then
+    echo You don\'t have a waste directory to empty.
+else
+	rm -rf "$HOME/.waste/"				# Removes the .waste directory and everything in it.
+	mkdir "$HOME/.waste/"               # Recreates the .waste directory.
+fi

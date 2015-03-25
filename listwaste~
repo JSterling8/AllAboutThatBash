@@ -1,0 +1,20 @@
+#!/bin/bash
+# This command uses the bash shell.
+# Author: Jonathan Sterling
+# Date last modified: 09 December 2012 
+# This command lists the names of all the files in your waste bin and their size in bytes.
+
+if [ -d $HOME/.waste ]                                    # Checks that the directory entered is valid
+    then
+	for file in $( find $HOME/.waste -maxdepth 1 -name "*" )
+    do
+    	if [ -f "$file" ]      				            # Makes sure that it's a file, not a directory.
+    	then
+            size=`du -b	$file`	
+            echo -e "$size"
+    	fi
+    done
+
+else
+    echo You don\'t have a waste directory.
+fi
